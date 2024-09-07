@@ -13,7 +13,7 @@ const rl = readline.createInterface({
 
 // Fonction pour lire une image et la convertir en base64
 function convertirImageEnBase64(imagePath, callback) {
-    const imagePathNormalise = path.normalize(imagePath); // Normalisation du chemin
+    const imagePathNormalise = path.normalize(imagePath);
 
     fs.readFile(imagePathNormalise, (err, data) => {
         if (err) {
@@ -37,11 +37,11 @@ function demanderURL() {
 
         rl.question('Quel nom souhaitez-vous donner au fichier PNG (sans extension) ? \n', filename => {
             
-            rl.question('Quelle couleur pour les points du QR code ? (ex: #000000) \n', couleurPoints => {
-                rl.question('Quelle couleur pour le fond du QR code ? (ex: #ffffff) \n', couleurFond => {
+            rl.question('Quelle couleur pour les points du QR code ? Veuillez choisir une couleur assez sombre ou clair (ex: #000000) \n', couleurPoints => {
+                rl.question('Quelle couleur pour le fond du QR code ? Veuillez choisir une couleur assez sombre ou clair (ex: #ffffff) \n', couleurFond => {
                     
                     const largeurQR = 512; // Taille du QR code
-                    const tailleImage = 200; // Taille de l'image au centre
+                    const tailleImage = 200; // Taille de l'image au centre (A modifier si souhait d'une image plus grande ou plus petite)
 
                     const fichierTelechargement = path.join(os.homedir(), 'Downloads');
                     const nomDuFichier = path.join(fichierTelechargement, `${filename}.png`);
@@ -49,8 +49,8 @@ function demanderURL() {
                     QRCode.toBuffer(url, {
                         width: largeurQR,
                         color: {
-                            dark: couleurPoints,  // Couleur des points du QR code
-                            light: couleurFond    // Couleur de l'arrière-plan du QR code
+                            dark: couleurPoints,
+                            light: couleurFond
                         }
                     }, function (err, buffer) {
                         if (err) {
